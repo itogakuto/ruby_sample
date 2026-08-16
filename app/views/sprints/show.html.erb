@@ -1,34 +1,81 @@
-<h1>Sprint</h1>
+<% content_for :title, "Sprint ##{@sprint.id} | #{@project.name}" %>
 
-<p>
-  <strong>顧客価値仮説:</strong>
-  <%= @sprint.customer_value_hypothesis %>
-</p>
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <%= link_to "プロジェクト", projects_path %>
+  <span aria-hidden="true">/</span>
+  <%= link_to @project.name, project_path(@project) %>
+  <span aria-hidden="true">/</span>
+  <%= link_to "Sprints", project_sprints_path(@project) %>
+  <span aria-hidden="true">/</span>
+  <span>#<%= @sprint.id %></span>
+</nav>
 
-<p>
-  <strong>検証方法:</strong>
-  <%= @sprint.validation_method %>
-</p>
+<header class="page-header">
+  <div class="page-header__content">
+    <p class="eyebrow">Outcome canvas / Sprint #<%= @sprint.id %></p>
+    <h1>検証Canvas</h1>
+    <p class="page-header__description">
+      <%= @sprint.created_at.strftime("%Y年%m月%d日") %>に作成された、<%= @project.name %>の仮説検証記録です。
+    </p>
+  </div>
+  <div class="page-actions">
+    <%= link_to "編集", edit_project_sprint_path(@project, @sprint), class: "button" %>
+    <%= button_to "削除",
+                  project_sprint_path(@project, @sprint),
+                  method: :delete,
+                  class: "button button--danger",
+                  form: { data: { turbo_confirm: "このSprintを削除しますか？" } } %>
+  </div>
+</header>
 
-<p>
-  <strong>検証結果:</strong>
-  <%= @sprint.validation_result %>
-</p>
+<div class="canvas">
+  <article class="canvas-card">
+    <div class="canvas-card__header">
+      <span class="canvas-card__number">01</span>
+      <h2>顧客価値仮説</h2>
+    </div>
+    <div class="canvas-card__body <%= "canvas-card__empty" if @sprint.customer_value_hypothesis.blank? %>">
+      <%= @sprint.customer_value_hypothesis.present? ? simple_format(@sprint.customer_value_hypothesis) : "まだ記録されていません。" %>
+    </div>
+  </article>
 
-<p>
-  <strong>学び:</strong>
-  <%= @sprint.learning %>
-</p>
+  <article class="canvas-card">
+    <div class="canvas-card__header">
+      <span class="canvas-card__number">02</span>
+      <h2>検証方法</h2>
+    </div>
+    <div class="canvas-card__body <%= "canvas-card__empty" if @sprint.validation_method.blank? %>">
+      <%= @sprint.validation_method.present? ? simple_format(@sprint.validation_method) : "まだ記録されていません。" %>
+    </div>
+  </article>
 
-<p>
-  <strong>次アクション:</strong>
-  <%= @sprint.next_action %>
-</p>
+  <article class="canvas-card">
+    <div class="canvas-card__header">
+      <span class="canvas-card__number">03</span>
+      <h2>検証結果</h2>
+    </div>
+    <div class="canvas-card__body <%= "canvas-card__empty" if @sprint.validation_result.blank? %>">
+      <%= @sprint.validation_result.present? ? simple_format(@sprint.validation_result) : "まだ記録されていません。" %>
+    </div>
+  </article>
 
-<%= link_to "編集", edit_project_sprint_path(@project, @sprint) %>
+  <article class="canvas-card canvas-card--learning">
+    <div class="canvas-card__header">
+      <span class="canvas-card__number">04</span>
+      <h2>学び</h2>
+    </div>
+    <div class="canvas-card__body <%= "canvas-card__empty" if @sprint.learning.blank? %>">
+      <%= @sprint.learning.present? ? simple_format(@sprint.learning) : "まだ記録されていません。" %>
+    </div>
+  </article>
 
-<%= button_to "削除",
-              project_sprint_path(@project, @sprint),
-              method: :delete %>
-
-<%= link_to "Sprint一覧へ戻る", project_sprints_path(@project) %>
+  <article class="canvas-card canvas-card--action">
+    <div class="canvas-card__header">
+      <span class="canvas-card__number">05</span>
+      <h2>次アクション</h2>
+    </div>
+    <div class="canvas-card__body <%= "canvas-card__empty" if @sprint.next_action.blank? %>">
+      <%= @sprint.next_action.present? ? simple_format(@sprint.next_action) : "まだ記録されていません。" %>
+    </div>
+  </article>
+</div>

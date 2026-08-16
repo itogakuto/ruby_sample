@@ -3,7 +3,7 @@ class SprintsController < ApplicationController
     before_action :set_sprint, only: [ :show, :destroy, :update, :edit ]
 
     def index
-        @sprints = @project.sprints
+        @sprints = @project.sprints.order(created_at: :desc)
     end
 
     def new
@@ -14,7 +14,7 @@ class SprintsController < ApplicationController
         @sprint = @project.sprints.new(sprint_params)
 
         if @sprint.save
-            redirect_to project_sprints_path(@project)
+            redirect_to project_sprint_path(@project, @sprint), notice: "Sprintを作成しました。"
         else
             render :new, status: :unprocessable_entity
         end
@@ -25,12 +25,12 @@ class SprintsController < ApplicationController
 
     def destroy
         @sprint.destroy
-        redirect_to project_sprints_path(@project)
+        redirect_to project_sprints_path(@project), notice: "Sprintを削除しました。"
     end
 
     def update
         if @sprint.update(sprint_params)
-            redirect_to project_sprint_path(@project, @sprint)
+            redirect_to project_sprint_path(@project, @sprint), notice: "Sprintを更新しました。"
         else
             render :edit, status: :unprocessable_entity
         end

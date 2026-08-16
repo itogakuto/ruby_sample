@@ -1,14 +1,69 @@
-<h1><%= @project.name %></h1>
+<% content_for :title, "#{@project.name} | Agile Outcome Canvas" %>
 
-<p>
-    <%= @project.description %>
-</p>
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <%= link_to "プロジェクト", projects_path %>
+  <span aria-hidden="true">/</span>
+  <span><%= @project.name %></span>
+</nav>
 
-<ul>
-<li>
-<%= link_to "projectへ戻る", projects_path %>
-<%= link_to "Edit", edit_project_path(@project) %>
-<%= button_to "Delete", project_path(@project), method: :delete %>
-<%= link_to "Sprintsを見る", project_sprints_path(@project) %>
-</li>
-</ul>
+<header class="page-header">
+  <div class="page-header__content">
+    <p class="eyebrow">Project overview</p>
+    <h1><%= @project.name %></h1>
+    <p class="page-header__description"><%= @project.description.presence || "このプロジェクトの説明はまだありません。" %></p>
+  </div>
+  <div class="page-actions">
+    <%= link_to "編集", edit_project_path(@project), class: "button" %>
+    <%= link_to "＋ Sprintを作成", new_project_sprint_path(@project), class: "button button--primary" %>
+  </div>
+</header>
+
+<div class="summary-strip">
+  <div class="summary-stat">
+    <span>Sprints</span>
+    <strong><%= @sprints.size %></strong>
+  </div>
+  <div class="summary-stat">
+    <span>Latest activity</span>
+    <strong><%= @latest_activity.strftime("%Y.%m.%d") %></strong>
+  </div>
+  <div class="summary-stat">
+    <span>Status</span>
+    <strong>進行中</strong>
+  </div>
+</div>
+
+<div class="section-heading">
+  <div>
+    <h2>最近のSprint</h2>
+    <p>新しい検証から順に表示しています。</p>
+  </div>
+  <% if @sprints.any? %>
+    <%= link_to "すべて見る →", project_sprints_path(@project), class: "button button--text" %>
+  <% end %>
+</div>
+
+<% if @sprints.any? %>
+  <div class="sprint-list">
+    <%= render partial: "sprints/sprint_card", collection: @sprints.first(4), as: :sprint, locals: { project: @project } %>
+  </div>
+<% else %>
+  <section class="empty-state">
+    <div class="empty-state__icon" aria-hidden="true">↗</div>
+    <h2>最初のSprintを始めましょう</h2>
+    <p>顧客価値仮説を置き、どのように確かめるかを記録してみましょう。</p>
+    <%= link_to "Sprintを作成", new_project_sprint_path(@project), class: "button button--primary" %>
+  </section>
+<% end %>
+
+<div class="section-heading">
+  <div>
+    <h2>プロジェクト設定</h2>
+    <p>削除すると、このプロジェクトにはアクセスできなくなります。</p>
+  </div>
+  <%= button_to "プロジェクトを削除",
+                project_path(@project),
+                method: :delete,
+                class: "button button--danger button--small",
+                form: { data: { turbo_confirm: "このプロジェクトを削除しますか？" } } %>
+</div>

@@ -1,11 +1,42 @@
-<h1>Projects<h1>
+<% content_for :title, "プロジェクト | Agile Outcome Canvas" %>
 
-<%= link_to "New Project", new_project_path %>
+<header class="page-header">
+  <div class="page-header__content">
+    <p class="eyebrow">Projects</p>
+    <h1>プロジェクト</h1>
+    <p class="page-header__description">チームで取り組むテーマごとに、仮説検証の履歴を整理します。</p>
+  </div>
+  <div class="page-actions">
+    <%= link_to "＋ 新しいプロジェクト", new_project_path, class: "button button--primary" %>
+  </div>
+</header>
 
-<ul>
+<% if @projects.any? %>
+  <div class="project-grid">
     <% @projects.each do |project| %>
-        <li>
-            <%= link_to project.name, project_path(project.id) %>
-        </li>
+      <article class="project-card">
+        <div class="project-card__top">
+          <div class="project-card__icon" aria-hidden="true"><%= project.name.first(2) %></div>
+          <time class="project-card__date" datetime="<%= project.updated_at.iso8601 %>">
+            <%= project.updated_at.strftime("%Y.%m.%d") %> 更新
+          </time>
+        </div>
+
+        <h2><%= link_to project.name, project_path(project), class: "card-link" %></h2>
+        <p class="project-card__description"><%= project.description.presence || "プロジェクトの説明はまだありません。" %></p>
+
+        <div class="project-card__footer">
+          <span><%= project.sprints.size %> Sprints</span>
+          <span>プロジェクトを開く →</span>
+        </div>
+      </article>
     <% end %>
-</ul>
+  </div>
+<% else %>
+  <section class="empty-state">
+    <div class="empty-state__icon" aria-hidden="true">＋</div>
+    <h2>最初のプロジェクトを作りましょう</h2>
+    <p>取り組みたいテーマを登録すると、仮説検証のSprintを記録できるようになります。</p>
+    <%= link_to "プロジェクトを作成", new_project_path, class: "button button--primary" %>
+  </section>
+<% end %>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
-    <title><%= content_for(:title) || "Sample App" %></title>
+    <title><%= content_for(:title) || "Agile Outcome Canvas" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Sample App">
+    <meta name="application-name" content="Agile Outcome Canvas">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -24,6 +24,42 @@
   </head>
 
   <body>
-    <%= yield %>
+    <a class="skip-link" href="#main-content">本文へ移動</a>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <%= link_to root_path, class: "brand", aria: { label: "Agile Outcome Canvas ホーム" } do %>
+          <span class="brand__mark" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="brand__text">
+            <strong>Outcome</strong>
+            <small>CANVAS</small>
+          </span>
+        <% end %>
+
+        <nav class="site-nav" aria-label="メインナビゲーション">
+          <%= link_to "プロジェクト", projects_path, class: "site-nav__link" %>
+          <%= link_to "新しいプロジェクト", new_project_path, class: "button button--small button--primary" %>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="page-shell">
+      <% flash.each do |type, message| %>
+        <div class="flash flash--<%= type %>" role="status"><%= message %></div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <span>Agile Outcome Canvas</span>
+        <span>仮説を、学びに変える。</span>
+      </div>
+    </footer>
   </body>
 </html>

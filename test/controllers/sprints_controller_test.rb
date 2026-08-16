@@ -1,6 +1,27 @@
 require "test_helper"
 
 class SprintsControllerTest < ActionDispatch::IntegrationTest
+  test "new renders the five-step sprint form" do
+    project = projects(:one)
+
+    get new_project_sprint_url(project)
+
+    assert_response :success
+    assert_select "form.sprint-form"
+    assert_select ".form-step", 5
+  end
+
+  test "edit renders the five-step sprint form" do
+    project = projects(:one)
+    sprint = sprints(:one)
+
+    get edit_project_sprint_url(project, sprint)
+
+    assert_response :success
+    assert_select "form.sprint-form"
+    assert_select ".form-step", 5
+  end
+
   test "creates a sprint with a customer value hypothesis" do
     project = projects(:one)
 
@@ -39,5 +60,17 @@ class SprintsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "a[href=?]", project_sprint_path(project, sprint), text: sprint.customer_value_hypothesis
+  end
+
+  test "show renders all canvas sections" do
+    project = projects(:one)
+    sprint = sprints(:one)
+
+    get project_sprint_url(project, sprint)
+
+    assert_response :success
+    assert_select ".canvas-card", 5
+    assert_select "h2", text: "顧客価値仮説"
+    assert_select "h2", text: "次アクション"
   end
 end

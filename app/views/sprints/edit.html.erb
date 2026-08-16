@@ -1,3 +1,21 @@
-<h1>Edit Sprint</h1>
+<% content_for :title, "Sprint ##{@sprint.id}を編集 | #{@project.name}" %>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <%= link_to "プロジェクト", projects_path %>
+  <span aria-hidden="true">/</span>
+  <%= link_to @project.name, project_path(@project) %>
+  <span aria-hidden="true">/</span>
+  <%= link_to "Sprint ##{@sprint.id}", project_sprint_path(@project, @sprint) %>
+  <span aria-hidden="true">/</span>
+  <span>編集</span>
+</nav>
+
+<header class="page-header">
+  <div class="page-header__content">
+    <p class="eyebrow">Edit canvas / Sprint #<%= @sprint.id %></p>
+    <h1>検証Canvasを編集</h1>
+    <p class="page-header__description">検証で起きた事実と、そこから得た学びを分けて記録するのがポイントです。</p>
+  </div>
+</header>
 
 <%= render "form", project: @project, sprint: @sprint %>

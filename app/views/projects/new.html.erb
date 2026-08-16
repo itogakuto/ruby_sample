@@ -1,3 +1,17 @@
-<h1>New Project</h1>
+<% content_for :title, "新しいプロジェクト | Agile Outcome Canvas" %>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <%= link_to "プロジェクト", projects_path %>
+  <span aria-hidden="true">/</span>
+  <span>新規作成</span>
+</nav>
+
+<header class="page-header">
+  <div class="page-header__content">
+    <p class="eyebrow">New project</p>
+    <h1>プロジェクトを作成</h1>
+    <p class="page-header__description">仮説検証に取り組むテーマと、チームで共有したい目的を登録します。</p>
+  </div>
+</header>
 
 <%= render "form", project: @project %>

@@ -1,0 +1,24 @@
+<article class="sprint-card">
+  <div class="sprint-card__top">
+    <span class="status-badge <%= "status-badge--complete" if sprint.validation_result.present? %>">
+      <%= sprint.validation_result.present? ? "検証済み" : "検証中" %>
+    </span>
+    <time class="sprint-card__date" datetime="<%= sprint.created_at.iso8601 %>">
+      <%= sprint.created_at.strftime("%Y.%m.%d") %>
+    </time>
+  </div>
+
+  <h2>
+    <%= link_to sprint.customer_value_hypothesis.presence || "仮説を記録していないSprint",
+                project_sprint_path(project, sprint),
+                class: "card-link" %>
+  </h2>
+  <p class="sprint-card__description">
+    <%= sprint.learning.presence || sprint.validation_method.presence || "検証方法や学びはまだ記録されていません。" %>
+  </p>
+
+  <div class="sprint-card__footer">
+    <span>SPRINT #<%= sprint.id %></span>
+    <span>Canvasを開く →</span>
+  </div>
+</article>

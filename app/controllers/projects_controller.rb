@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
     def index
-        @projects = Project.all
+        @projects = Project.includes(:sprints).order(updated_at: :desc)
     end
 
     def new
@@ -11,14 +11,16 @@ class ProjectsController < ApplicationController
         @project = Project.new(project_params)
 
         if @project.save
-            redirect_to projects_path
-        else 
+            redirect_to @project, notice: "プロジェクトを作成しました。"
+        else
             render :new, status: :unprocessable_entity
         end
     end
 
     def show
         @project = Project.find(params[:id])
+        @sprints = @project.sprints.order(created_at: :desc)
+        @latest_activity = [ @project.updated_at, @sprints.first&.updated_at ].compact.max
     end
 
     def edit
@@ -29,9 +31,9 @@ class ProjectsController < ApplicationController
         @project = Project.find(params[:id])
 
         if @project.update(project_params)
-            redirect_to @project
+            redirect_to @project, notice: "プロジェクトを更新しました。"
         else
-            render :edit, status:unprocessable_entity
+            render :edit, status: :unprocessable_entity
         end
     end
 
@@ -39,9 +41,9 @@ class ProjectsController < ApplicationController
         @project = Project.find(params[:id])
         @project.destroy
 
-        redirect_to projects_path
+        redirect_to projects_path, notice: "プロジェクトを削除しました。"
     end
-    
+
     private
 
     def project_params
