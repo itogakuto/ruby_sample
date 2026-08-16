@@ -1,4 +1,7 @@
 <% content_for :title, "#{@project.name} | Agile Outcome Canvas" %>
+<% content_for :head do %>
+  <meta name="turbo-cache-control" content="no-cache">
+<% end %>
 
 <nav class="breadcrumb" aria-label="パンくずリスト">
   <%= link_to "プロジェクト", projects_path %>

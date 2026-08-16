@@ -49,7 +49,7 @@
 
     <main id="main-content" class="page-shell">
       <% flash.each do |type, message| %>
-        <div class="flash flash--<%= type %>" role="status"><%= message %></div>
+        <div class="flash flash--<%= type %>" role="<%= type.to_s == "alert" ? "alert" : "status" %>"><%= message %></div>
       <% end %>
 
       <%= yield %>
