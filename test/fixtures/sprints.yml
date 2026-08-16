@@ -1,17 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  customer_value_hypothesis: MyText
-  validation_method: MyText
-  validation_result: MyText
-  learning: MyText
-  next_action: MyText
+  customer_value_hypothesis: 初めての利用者は次の操作が明確なら行動を開始できる
+  validation_method: 5名にプロトタイプを操作してもらう
+  validation_result: 5名中4名が最初のタスクを完了した
+  learning: 選択肢の多さより推奨操作の明確さが重要だった
+  next_action: 推奨操作を1つに絞った画面を再検証する
   project: one
 
 two:
-  customer_value_hypothesis: MyText
-  validation_method: MyText
-  validation_result: MyText
-  learning: MyText
-  next_action: MyText
+  customer_value_hypothesis: チームは検証結果を一覧で比較したい
+  validation_method: 既存利用者へインタビューする
+  validation_result: 3名全員が比較機能を必要と回答した
+  learning: 結果だけでなく検証条件の表示も必要だった
+  next_action: 検証条件を含む一覧を試作する
   project: two
