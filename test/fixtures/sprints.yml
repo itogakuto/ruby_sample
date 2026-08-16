@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_value_hypothesis: MyText
+  validation_method: MyText
+  validation_result: MyText
+  learning: MyText
+  next_action: MyText
+  project: one
+
+two:
+  customer_value_hypothesis: MyText
+  validation_method: MyText
+  validation_result: MyText
+  learning: MyText
+  next_action: MyText
+  project: two

@@ -1,0 +1,14 @@
+<h1><%= @project.name %></h1>
+
+<p>
+    <%= @project.description %>
+</p>
+
+<ul>
+<li>
+<%= link_to "projectへ戻る", projects_path %>
+<%= link_to "Edit", project_path(@project) %>
+<%= button_to "Delete", project_path(@project), method: :delete %>
+<%= link_to "Sprintsを見る", project_sprints_path(@project) %>
+</li>
+</ul>

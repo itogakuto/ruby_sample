@@ -1,0 +1,28 @@
+<%= form_with model: [@project, @sprint] do |form| %>
+  <div>
+    <%= form.label :customer_value_hypothesis, "顧客価値仮説" %>
+    <%= form.text_area :customer_value_hypothesis %>
+  </div>
+
+  <div>
+    <%= form.label :validation_method, "検証方法" %>
+    <%= form.text_area :validation_method %>
+  </div>
+
+  <div>
+    <%= form.label :validation_result, "検証結果" %>
+    <%= form.text_area :validation_result %>
+  </div>
+
+  <div>
+    <%= form.label :learning, "学び" %>
+    <%= form.text_area :learning %>
+  </div>
+
+  <div>
+    <%= form.label :next_action, "次アクション" %>
+    <%= form.text_area :next_action %>
+  </div>
+
+  <%= form.submit %>
+<% end %>

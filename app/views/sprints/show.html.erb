@@ -1,0 +1,34 @@
+<h1>Sprint</h1>
+
+<p>
+  <strong>顧客価値仮説:</strong>
+  <%= @sprint.customer_value_hypothesis %>
+</p>
+
+<p>
+  <strong>検証方法:</strong>
+  <%= @sprint.validation_method %>
+</p>
+
+<p>
+  <strong>検証結果:</strong>
+  <%= @sprint.validation_result %>
+</p>
+
+<p>
+  <strong>学び:</strong>
+  <%= @sprint.learning %>
+</p>
+
+<p>
+  <strong>次アクション:</strong>
+  <%= @sprint.next_action %>
+</p>
+
+<%= link_to "編集", edit_project_sprint_path(@project, @sprint) %>
+
+<%= button_to "削除",
+              project_sprint_path(@project, @sprint),
+              method: :delete %>
+
+<%= link_to "Sprint一覧へ戻る", project_sprints_path(@project) %>

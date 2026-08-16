@@ -1,0 +1,11 @@
+<h1><%= @project.name %>のSprint</h1>
+
+<%= link_to "New Sprint", new_project_sprint_path(@project) %>
+
+<ul>
+    <% @sprints.each do |sprint| %>
+        <li>
+            <%= sprint.customer_value_hypothesis %>
+        </li>
+    <% end %>
+</ul>
