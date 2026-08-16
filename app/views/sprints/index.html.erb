@@ -5,7 +5,10 @@
 <ul>
     <% @sprints.each do |sprint| %>
         <li>
-            <%= sprint.customer_value_hypothesis %>
+            <%= link_to sprint.customer_value_hypothesis.presence || "Sprint ##{sprint.id}",
+                        project_sprint_path(@project, sprint) %>
         </li>
     <% end %>
 </ul>
+
+<%= link_to "Projectに戻る", project_path(@project) %>

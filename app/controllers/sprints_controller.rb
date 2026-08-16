@@ -1,6 +1,6 @@
 class SprintsController < ApplicationController
     before_action :set_project
-    before_action :set_sprint, only: [:show, :destroy, :update, :edit]
+    before_action :set_sprint, only: [ :show, :destroy, :update, :edit ]
 
     def index
         @sprints = @project.sprints
@@ -29,7 +29,7 @@ class SprintsController < ApplicationController
     end
 
     def update
-        if sprint.update(sprint_params)
+        if @sprint.update(sprint_params)
             redirect_to project_sprint_path(@project, @sprint)
         else
             render :edit, status: :unprocessable_entity
@@ -51,7 +51,7 @@ class SprintsController < ApplicationController
 
     def sprint_params
         params.require(:sprint).permit(
-            :custpomer_value_hypothesis,
+            :customer_value_hypothesis,
             :validation_method,
             :validation_result,
             :learning,

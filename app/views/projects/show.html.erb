@@ -7,7 +7,7 @@
 <ul>
 <li>
 <%= link_to "projectへ戻る", projects_path %>
-<%= link_to "Edit", project_path(@project) %>
+<%= link_to "Edit", edit_project_path(@project) %>
 <%= button_to "Delete", project_path(@project), method: :delete %>
 <%= link_to "Sprintsを見る", project_sprints_path(@project) %>
 </li>
