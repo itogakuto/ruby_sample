@@ -72,5 +72,30 @@ class SprintsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".canvas-card", 5
     assert_select "h2", text: "顧客価値仮説"
     assert_select "h2", text: "次アクション"
+    assert_select "meta[name='turbo-cache-control'][content='no-cache']", visible: false
+  end
+
+  test "deleted sprint URL redirects to the sprint index with an alert" do
+    project = projects(:one)
+    sprint = sprints(:one)
+    sprint.destroy!
+
+    get project_sprint_url(project, sprint)
+
+    assert_redirected_to project_sprints_path(project)
+    follow_redirect!
+    assert_select ".flash--alert[role='alert']", text: "このSprintは削除されているため表示できません。"
+  end
+
+  test "sprint URL under a deleted project redirects to projects with an alert" do
+    project = projects(:one)
+    sprint = sprints(:one)
+    project.destroy!
+
+    get project_sprint_url(project, sprint)
+
+    assert_redirected_to projects_path
+    follow_redirect!
+    assert_select ".flash--alert[role='alert']", text: "このプロジェクトは削除されているため表示できません。"
   end
 end
