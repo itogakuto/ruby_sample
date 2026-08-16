@@ -1,28 +1,75 @@
-<%= form_with model: [@project, @sprint] do |form| %>
-  <div>
-    <%= form.label :customer_value_hypothesis, "顧客価値仮説" %>
-    <%= form.text_area :customer_value_hypothesis %>
+<%= form_with model: [project, sprint], class: "sprint-form" do |form| %>
+  <% if sprint.errors.any? %>
+    <div class="error-summary" role="alert">
+      <h2>入力内容を確認してください</h2>
+      <ul>
+        <% sprint.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-step">
+    <span class="form-step__number">01</span>
+    <div class="form-step__content">
+      <%= form.label :customer_value_hypothesis, "顧客価値仮説" %>
+      <p class="field__hint">誰が、どんな状況で、どんな価値を求めていると考えますか？</p>
+      <%= form.text_area :customer_value_hypothesis,
+                         placeholder: "例：初めて利用するユーザーは、最初にやることが明確なら迷わず行動を始められる。",
+                         rows: 5,
+                         autofocus: true %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :validation_method, "検証方法" %>
-    <%= form.text_area :validation_method %>
+  <div class="form-step">
+    <span class="form-step__number">02</span>
+    <div class="form-step__content">
+      <%= form.label :validation_method, "検証方法" %>
+      <p class="field__hint">仮説が正しいか、どのような方法と基準で確かめますか？</p>
+      <%= form.text_area :validation_method,
+                         placeholder: "例：5名にプロトタイプを操作してもらい、説明なしで最初のタスクを完了できるか確認する。",
+                         rows: 5 %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :validation_result, "検証結果" %>
-    <%= form.text_area :validation_result %>
+  <div class="form-step">
+    <span class="form-step__number">03</span>
+    <div class="form-step__content">
+      <%= form.label :validation_result, "検証結果" %>
+      <p class="field__hint">解釈を加える前に、観察した事実や数値を記録します。</p>
+      <%= form.text_area :validation_result,
+                         placeholder: "例：5名中4名が完了。3名が同じ場所で一度操作を止めた。",
+                         rows: 5 %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :learning, "学び" %>
-    <%= form.text_area :learning %>
+  <div class="form-step form-step--learning">
+    <span class="form-step__number">04</span>
+    <div class="form-step__content">
+      <%= form.label :learning, "学び" %>
+      <p class="field__hint">結果から、仮説や顧客について何が分かりましたか？</p>
+      <%= form.text_area :learning,
+                         placeholder: "例：選択肢の多さではなく、次に進めるという確信が重要だった。",
+                         rows: 5 %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :next_action, "次アクション" %>
-    <%= form.text_area :next_action %>
+  <div class="form-step form-step--action">
+    <span class="form-step__number">05</span>
+    <div class="form-step__content">
+      <%= form.label :next_action, "次アクション" %>
+      <p class="field__hint">学びを踏まえて、次に何を変え、何を確かめますか？</p>
+      <%= form.text_area :next_action,
+                         placeholder: "例：最初の画面に推奨アクションを1つだけ表示した案を作り、再度テストする。",
+                         rows: 5 %>
+    </div>
   </div>
 
-  <%= form.submit %>
+  <div class="form-actions">
+    <%= form.submit sprint.persisted? ? "変更を保存" : "Sprintを作成" %>
+    <%= link_to "キャンセル",
+                sprint.persisted? ? project_sprint_path(project, sprint) : project_path(project),
+                class: "button" %>
+  </div>
 <% end %>

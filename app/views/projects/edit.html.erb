@@ -1,3 +1,19 @@
-<h1>Edit Project</h1>
+<% content_for :title, "#{@project.name}を編集 | Agile Outcome Canvas" %>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <%= link_to "プロジェクト", projects_path %>
+  <span aria-hidden="true">/</span>
+  <%= link_to @project.name, project_path(@project) %>
+  <span aria-hidden="true">/</span>
+  <span>編集</span>
+</nav>
+
+<header class="page-header">
+  <div class="page-header__content">
+    <p class="eyebrow">Edit project</p>
+    <h1>プロジェクトを編集</h1>
+    <p class="page-header__description">名前や目的を、チームの現在の認識に合わせて更新します。</p>
+  </div>
+</header>
 
 <%= render "form", project: @project %>

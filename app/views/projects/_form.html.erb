@@ -1,27 +1,47 @@
-<%= form_with model: @project do |form| %>
-    <% if @project.errors.any? %>
-        <div>
-            <h2>入力内容にエラーがあります</h2>
+<div class="form-layout">
+  <%= form_with model: project, class: "form-card" do |form| %>
+    <div class="form-card__intro">
+      <h2>基本情報</h2>
+      <p>後からいつでも変更できます。まずはチームが識別しやすい名前を付けましょう。</p>
+    </div>
 
-            <ul>
-                <% @project.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-            </ul>
-        </div>
+    <% if project.errors.any? %>
+      <div class="error-summary" role="alert">
+        <h2>入力内容を確認してください</h2>
+        <ul>
+          <% project.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
 
-    <div>
-        <%= form.label :name %>
-        <%= form.text_field :name %>
+    <div class="field">
+      <%= form.label :name do %>
+        プロジェクト名<span class="field__required">必須</span>
+      <% end %>
+      <p class="field__hint">取り組むテーマが伝わる、短い名前がおすすめです。</p>
+      <%= form.text_field :name, placeholder: "例：オンボーディング改善", autofocus: true %>
     </div>
 
-    <div>
-        <%= form.label :description %>
-        <%= form.text_area :description %>
+    <div class="field">
+      <%= form.label :description, "目的・概要" %>
+      <p class="field__hint">対象となる顧客や、解決したい課題を簡潔に記録します。</p>
+      <%= form.text_area :description, placeholder: "例：初めて利用するユーザーが、迷わず最初の成果にたどり着ける体験をつくる。", rows: 6 %>
     </div>
 
-    <div>
-        <%= form.submit %>
+    <div class="form-actions">
+      <%= form.submit project.persisted? ? "変更を保存" : "プロジェクトを作成" %>
+      <%= link_to "キャンセル", project.persisted? ? project_path(project) : projects_path, class: "button" %>
     </div>
-<% end %>
+  <% end %>
+
+  <aside class="form-aside">
+    <h2>良いプロジェクト名のヒント</h2>
+    <ul>
+      <li>チーム内で同じ意味に捉えられる</li>
+      <li>対象やテーマがすぐに分かる</li>
+      <li>解決策を決めつけすぎない</li>
+    </ul>
+  </aside>
+</div>

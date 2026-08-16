@@ -1,19 +1,79 @@
-<h1><%= @app_name %></h1>
+<% content_for :title, "Agile Outcome Canvas | 仮説を、学びに変える" %>
 
-<p><%= @description %></p>
+<section class="landing-hero">
+  <div class="landing-hero__copy">
+    <p class="eyebrow">Learn through action</p>
+    <h1>仮説を、<br>学びに変える。</h1>
+    <p>
+      顧客価値の仮説から次のアクションまで。チームの検証プロセスを、ひとつのCanvasでシンプルに記録します。
+    </p>
 
-<section>
-    <h2>このアプリで管理するもの</h2>
+    <div class="button-row">
+      <%= link_to "プロジェクトを見る", projects_path, class: "button button--primary" %>
+      <%= link_to "新しく始める", new_project_path, class: "button" %>
+    </div>
 
-    <ul>
-        <li>Project</li>
-        <li>Sprint</li>
-        <li>顧客価値仮説</li>
-        <li>検証方法</li>
-        <li>検証結果</li>
-        <li>学び</li>
-        <li>次アクション</li>
-    </ul>
+    <div class="landing-hero__note">小さく試して、確かな学びを積み重ねる</div>
+  </div>
 
-    <%= link_to "Projectを見る", projects_path %>
+  <div class="canvas-preview" aria-label="仮説検証Canvasのイメージ">
+    <div class="canvas-preview__top">
+      <span>OUTCOME CANVAS</span>
+      <span>SPRINT 03</span>
+    </div>
+
+    <div class="canvas-preview__grid">
+      <article class="preview-note">
+        <span>01 / HYPOTHESIS</span>
+        <h3>顧客価値仮説</h3>
+        <p>顧客は判断材料がまとまっていれば、自信を持って次の一歩を選べる。</p>
+      </article>
+      <article class="preview-note">
+        <span>02 / VALIDATE</span>
+        <h3>検証方法</h3>
+        <p>5名へのインタビューとプロトタイプテスト。</p>
+      </article>
+      <article class="preview-note">
+        <span>03 / RESULT</span>
+        <h3>検証結果</h3>
+        <p>4名が比較画面から迷わず選択できた。</p>
+      </article>
+      <article class="preview-note">
+        <span>04 / LEARNING</span>
+        <h3>学び</h3>
+        <p>情報量より、比較の軸が重要だった。</p>
+      </article>
+      <article class="preview-note">
+        <span>05 / NEXT</span>
+        <h3>次アクション</h3>
+        <p>比較軸を3つに絞って再検証する。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="process-section">
+  <div class="process-section__intro">
+    <p class="eyebrow">A simple loop</p>
+    <h2>検証のサイクルを、迷わず回す。</h2>
+    <p class="text-muted">考える・試す・学ぶをひと続きにすることで、チームの意思決定を前に進めます。</p>
+  </div>
+
+  <div class="process-grid">
+    <article class="process-card">
+      <div class="process-card__number">01</div>
+      <h3>仮説を置く</h3>
+      <p>誰に、どんな価値を届けたいのか。検証したい前提を言葉にします。</p>
+    </article>
+    <article class="process-card">
+      <div class="process-card__number">02</div>
+      <h3>小さく確かめる</h3>
+      <p>インタビューやプロトタイプで、早く具体的な反応を集めます。</p>
+    </article>
+    <article class="process-card">
+      <div class="process-card__number">03</div>
+      <h3>次へつなげる</h3>
+      <p>結果から得た学びを残し、次に試すアクションを明確にします。</p>
+    </article>
+  </div>
 </section>

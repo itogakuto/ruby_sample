@@ -1,14 +1,33 @@
-<h1><%= @project.name %>のSprint</h1>
+<% content_for :title, "#{@project.name}のSprint | Agile Outcome Canvas" %>
 
-<%= link_to "New Sprint", new_project_sprint_path(@project) %>
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <%= link_to "プロジェクト", projects_path %>
+  <span aria-hidden="true">/</span>
+  <%= link_to @project.name, project_path(@project) %>
+  <span aria-hidden="true">/</span>
+  <span>Sprints</span>
+</nav>
 
-<ul>
-    <% @sprints.each do |sprint| %>
-        <li>
-            <%= link_to sprint.customer_value_hypothesis.presence || "Sprint ##{sprint.id}",
-                        project_sprint_path(@project, sprint) %>
-        </li>
-    <% end %>
-</ul>
+<header class="page-header">
+  <div class="page-header__content">
+    <p class="eyebrow">Sprint history</p>
+    <h1>Sprints</h1>
+    <p class="page-header__description"><%= @project.name %>で積み重ねた仮説検証と学びの履歴です。</p>
+  </div>
+  <div class="page-actions">
+    <%= link_to "＋ 新しいSprint", new_project_sprint_path(@project), class: "button button--primary" %>
+  </div>
+</header>
 
-<%= link_to "Projectに戻る", project_path(@project) %>
+<% if @sprints.any? %>
+  <div class="sprint-list">
+    <%= render partial: "sprint_card", collection: @sprints, as: :sprint, locals: { project: @project } %>
+  </div>
+<% else %>
+  <section class="empty-state">
+    <div class="empty-state__icon" aria-hidden="true">↗</div>
+    <h2>まだSprintがありません</h2>
+    <p>最初の顧客価値仮説を書き出し、検証のサイクルを始めましょう。</p>
+    <%= link_to "Sprintを作成", new_project_sprint_path(@project), class: "button button--primary" %>
+  </section>
+<% end %>
