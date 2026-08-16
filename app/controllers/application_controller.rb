@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
   private
 
   def redirect_from_deleted_resource
+    return head :not_found if history_resource_check?
+
     if controller_name == "sprints"
       redirect_from_deleted_sprint
     elsif controller_name == "projects"
@@ -27,5 +29,9 @@ class ApplicationController < ActionController::Base
     else
       redirect_to projects_path, alert: "このプロジェクトは削除されているため表示できません。"
     end
+  end
+
+  def history_resource_check?
+    request.head? && request.headers["X-History-Resource-Check"] == "true"
   end
 end

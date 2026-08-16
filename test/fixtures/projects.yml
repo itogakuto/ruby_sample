@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyText
+  name: オンボーディング改善
+  description: 初めて利用するユーザーの体験を改善する
 
 two:
-  name: MyString
-  description: MyText
+  name: レポート機能改善
+  description: チームが検証結果を把握しやすくする

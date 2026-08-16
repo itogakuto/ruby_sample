@@ -1,6 +1,9 @@
 <% content_for :title, "#{@project.name} | Agile Outcome Canvas" %>
 <% content_for :head do %>
   <meta name="turbo-cache-control" content="no-cache">
+  <meta name="history-resource-check" content="true">
+  <meta name="history-resource-fallback" content="<%= projects_path %>">
+  <meta name="history-resource-alert" content="このプロジェクトは削除されているため表示できません。">
 <% end %>
 
 <nav class="breadcrumb" aria-label="パンくずリスト">
